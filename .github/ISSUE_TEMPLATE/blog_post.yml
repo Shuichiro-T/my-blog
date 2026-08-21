@@ -1,0 +1,61 @@
+name: 📝 記事の執筆・修正
+description: 新しいブログ記事の企画、または既存記事の修正を依頼する
+title: "[Post] "
+labels: ["content"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 種別
+      options:
+        - 新規記事を書く
+        - 既存記事を修正する
+    validations:
+      required: true
+
+  - type: input
+    id: post_title
+    attributes:
+      label: 記事タイトル（案）
+      placeholder: 例）AstroでMarkdownブログを作る
+    validations:
+      required: true
+
+  - type: input
+    id: path
+    attributes:
+      label: ファイルパス
+      description: 既存記事の修正の場合は対象ファイル、新規の場合は想定パスを書いてください。
+      placeholder: 例）src/content/blog/astro-markdown-blog.md
+
+  - type: textarea
+    id: outline
+    attributes:
+      label: 内容・構成
+      description: 書きたい内容、見出し構成、修正したい箇所などを書いてください。
+      value: |
+        -
+        -
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: タグ
+      description: カンマ区切りで記入してください。
+      placeholder: 例）astro, github-pages, markdown
+
+  - type: textarea
+    id: references
+    attributes:
+      label: 参考リンク
+      description: 参考にした記事や公式ドキュメントのURLがあれば貼ってください。
+
+  - type: checkboxes
+    id: claude
+    attributes:
+      label: 対応の依頼
+      options:
+        - label: "@claude に下書き作成を依頼する"
+          required: false
