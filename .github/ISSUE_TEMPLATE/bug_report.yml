@@ -1,0 +1,83 @@
+name: 🐛 バグ報告
+description: サイトの表示崩れ、ビルド失敗、リンク切れなどの不具合を報告する
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        不具合の報告ありがとうございます。再現に必要な情報を記入してください。
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: どんな不具合が起きているかを一言で説明してください。
+      placeholder: 例）記事一覧ページで公開日が表示されない
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      description: 不具合を再現する手順を順番に書いてください。
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待する挙動
+      placeholder: 例）記事の公開日が YYYY-MM-DD 形式で表示される
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 実際の挙動
+      description: エラーメッセージやログがあれば貼り付けてください。スクリーンショットも歓迎します。
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 発生箇所
+      options:
+        - 公開サイト（GitHub Pages）
+        - ローカル開発（npm run dev）
+        - ビルド / デプロイ（GitHub Actions）
+        - 記事コンテンツ（Markdown）
+        - その他 / 不明
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: 該当URL・ファイルパス
+      placeholder: 例）https://shuichiro-t.github.io/my-blog/posts/hello または src/content/blog/hello.md
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 環境
+      description: ブラウザ・OS・Node.jsのバージョンなど、分かる範囲で。
+      placeholder: |
+        - OS: macOS 15
+        - ブラウザ: Chrome 130
+        - Node.js: 22.x
+
+  - type: checkboxes
+    id: claude
+    attributes:
+      label: 対応の依頼
+      options:
+        - label: "@claude に調査・修正を依頼する"
+          required: false

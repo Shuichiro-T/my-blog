@@ -1,0 +1,44 @@
+name: 🛠 作業タスク
+description: 環境構築、リファクタリング、ドキュメント更新などの作業を登録する
+title: "[Task] "
+labels: ["task"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: 目的・背景
+      description: なぜこの作業が必要かを書いてください。
+      placeholder: 例）Astroプロジェクトが未セットアップのため、記事を追加してもビルドできない
+    validations:
+      required: true
+
+  - type: textarea
+    id: todo
+    attributes:
+      label: 作業内容
+      description: 実施することをチェックリストで書いてください。
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: done
+    attributes:
+      label: 完了条件
+      placeholder: 例）npm run build が成功し、GitHub Pagesにデプロイされる
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: 補足
+      description: 関連Issue、参考リンク、注意点など。
+
+  - type: checkboxes
+    id: claude
+    attributes:
+      label: 対応の依頼
+      options:
+        - label: "@claude に作業を依頼する"
+          required: false
