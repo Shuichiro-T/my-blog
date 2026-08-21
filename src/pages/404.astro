@@ -1,0 +1,10 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { href } from '@/lib/format';
+---
+
+<BaseLayout title="404" description="ページが見つかりませんでした。">
+  <h1>404</h1>
+  <p>お探しのページは見つかりませんでした。</p>
+  <p><a href={href('/')}>← トップページに戻る</a></p>
+</BaseLayout>

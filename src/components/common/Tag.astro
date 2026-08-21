@@ -1,0 +1,38 @@
+---
+import { href } from '@/lib/format';
+
+interface Props {
+  tag: string;
+  count?: number;
+}
+
+const { tag, count } = Astro.props;
+---
+
+<a class="tag" href={href(`/tags/${tag}`)}>
+  #{tag}{count !== undefined && <span class="count">{count}</span>}
+</a>
+
+<style>
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.1rem 0.55rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .tag:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .count {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.7;
+  }
+</style>

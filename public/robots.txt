@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shuichiro-t.github.io/my-blog/sitemap-index.xml

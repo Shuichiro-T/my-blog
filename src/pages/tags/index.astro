@@ -1,0 +1,30 @@
+---
+import Tag from '@/components/common/Tag.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getAllTags } from '@/lib/posts';
+
+const tags = await getAllTags();
+---
+
+<BaseLayout title="Tags" description="タグの一覧。">
+  <h1>Tags</h1>
+  {
+    tags.length === 0 ? (
+      <p class="muted">まだタグがありません。</p>
+    ) : (
+      <div class="tags">
+        {tags.map(({ tag, count }) => (
+          <Tag tag={tag} count={count} />
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>

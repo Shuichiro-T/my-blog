@@ -1,0 +1,19 @@
+---
+import PostCard from '@/components/blog/PostCard.astro';
+import type { Post } from '@/lib/posts';
+
+interface Props {
+  posts: Post[];
+  emptyMessage?: string;
+}
+
+const { posts, emptyMessage = 'まだ記事がありません。' } = Astro.props;
+---
+
+{
+  posts.length === 0 ? (
+    <p class="muted">{emptyMessage}</p>
+  ) : (
+    posts.map((post) => <PostCard post={post} />)
+  )
+}

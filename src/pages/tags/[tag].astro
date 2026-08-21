@@ -1,0 +1,37 @@
+---
+import type { GetStaticPaths } from 'astro';
+import PostList from '@/components/blog/PostList.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { href } from '@/lib/format';
+import { getAllTags, getPostsByTag, type Post } from '@/lib/posts';
+
+export const getStaticPaths = (async () => {
+  const tags = await getAllTags();
+
+  return Promise.all(
+    tags.map(async ({ tag }) => ({
+      params: { tag },
+      props: { tag, posts: await getPostsByTag(tag) },
+    })),
+  );
+}) satisfies GetStaticPaths;
+
+const { tag, posts } = Astro.props as { tag: string; posts: Post[] };
+---
+
+<BaseLayout title={`#${tag}`} description={`「${tag}」タグの記事一覧。`}>
+  <h1>#{tag}</h1>
+  <p class="muted">{posts.length} 件の記事</p>
+  <PostList posts={posts} />
+  <p class="back"><a href={href('/tags')}>← タグ一覧に戻る</a></p>
+</BaseLayout>
+
+<style>
+  h1 {
+    margin-bottom: 0.25rem;
+  }
+
+  .back {
+    margin-top: 2rem;
+  }
+</style>

@@ -1,0 +1,13 @@
+---
+import { AUTHOR } from '@/consts';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About" description={`${AUTHOR} と このブログについて。`}>
+  <h1>About</h1>
+  <p>
+    {AUTHOR} のブログです。Markdown で記事を書き、Astro で静的 HTML
+    に変換して GitHub Pages で公開しています。
+  </p>
+  <p class="muted">※ このページの内容は自由に書き換えてください。</p>
+</BaseLayout>
