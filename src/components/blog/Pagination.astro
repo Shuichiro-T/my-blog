@@ -1,0 +1,36 @@
+---
+import { href } from '@/lib/format';
+
+interface Props {
+  /** 前/次ページのパス（base は含めない。undefined ならリンクを出さない） */
+  prevPath?: string | undefined;
+  nextPath?: string | undefined;
+  current: number;
+  last: number;
+}
+
+const { prevPath, nextPath, current, last } = Astro.props;
+---
+
+{
+  last > 1 && (
+    <nav class="pagination" aria-label="ページ送り">
+      {prevPath ? <a href={href(prevPath)}>← 新しい記事</a> : <span />}
+      <span class="muted">
+        {current} / {last}
+      </span>
+      {nextPath ? <a href={href(nextPath)}>古い記事 →</a> : <span />}
+    </nav>
+  )
+}
+
+<style>
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9375rem;
+  }
+</style>

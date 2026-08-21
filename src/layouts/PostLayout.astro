@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+import FormattedDate from '@/components/common/FormattedDate.astro';
+import Tag from '@/components/common/Tag.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import type { Post } from '@/lib/posts';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, draft, heroImage, heroImageAlt } =
+  post.data;
+---
+
+<BaseLayout title={title} description={description} type="article">
+  <article>
+    <header>
+      <div class="meta">
+        <FormattedDate date={pubDate} />
+        {
+          updatedDate && (
+            <span>
+              （更新: <FormattedDate date={updatedDate} />）
+            </span>
+          )
+        }
+        {draft && <span class="draft">下書き</span>}
+      </div>
+      <h1>{title}</h1>
+      {
+        tags.length > 0 && (
+          <div class="tags">
+            {tags.map((tag) => (
+              <Tag tag={tag} />
+            ))}
+          </div>
+        )
+      }
+      {
+        heroImage && (
+          <Image class="hero" src={heroImage} alt={heroImageAlt ?? ''} loading="eager" />
+        )
+      }
+    </header>
+
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .draft {
+    padding: 0 0.4rem;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+  }
+
+  h1 {
+    margin: 0.5rem 0;
+    font-size: 1.875rem;
+    line-height: 1.35;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .hero {
+    width: 100%;
+    height: auto;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .prose {
+    margin-top: 2rem;
+  }
+
+  .prose :global(h2) {
+    margin-top: 2.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 1.4rem;
+  }
+
+  .prose :global(h3) {
+    margin-top: 2rem;
+    font-size: 1.15rem;
+  }
+</style>

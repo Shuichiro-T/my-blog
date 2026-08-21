@@ -1,0 +1,71 @@
+---
+import FormattedDate from '@/components/common/FormattedDate.astro';
+import Tag from '@/components/common/Tag.astro';
+import { href } from '@/lib/format';
+import { postPath, type Post } from '@/lib/posts';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="card">
+  <div class="meta">
+    <FormattedDate date={post.data.pubDate} />
+    {post.data.draft && <span class="draft">下書き</span>}
+  </div>
+  <h2><a href={href(postPath(post))}>{post.data.title}</a></h2>
+  <p class="muted">{post.data.description}</p>
+  {
+    post.data.tags.length > 0 && (
+      <div class="tags">
+        {post.data.tags.map((tag) => (
+          <Tag tag={tag} />
+        ))}
+      </div>
+    )
+  }
+</article>
+
+<style>
+  .card {
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .draft {
+    padding: 0 0.4rem;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+  }
+
+  h2 {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  h2 a {
+    color: var(--color-fg);
+  }
+
+  p {
+    margin: 0 0 0.75rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+</style>

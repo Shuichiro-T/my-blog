@@ -1,0 +1,42 @@
+---
+import PostList from '@/components/blog/PostList.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { href } from '@/lib/format';
+import { getPublishedPosts } from '@/lib/posts';
+
+const posts = (await getPublishedPosts()).slice(0, 5);
+---
+
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <section class="intro">
+    <h1>{SITE_TITLE}</h1>
+    <p class="muted">{SITE_DESCRIPTION}</p>
+  </section>
+
+  <section>
+    <h2>最新の記事</h2>
+    <PostList posts={posts} />
+    <p class="more"><a href={href('/blog')}>記事をすべて見る →</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro h1 {
+    margin-bottom: 0.25rem;
+    font-size: 2rem;
+  }
+
+  .intro p {
+    margin-top: 0;
+  }
+
+  h2 {
+    margin-top: 3rem;
+    font-size: 1.25rem;
+  }
+
+  .more {
+    margin-top: 1.5rem;
+  }
+</style>

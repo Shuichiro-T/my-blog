@@ -1,0 +1,39 @@
+---
+import { SITE_TITLE } from '@/consts';
+import { href } from '@/lib/format';
+
+interface Props {
+  title: string;
+  description: string;
+  /** OGP の og:type。記事ページでは 'article' を渡す */
+  type?: 'website' | 'article';
+}
+
+const { title, description, type = 'website' } = Astro.props;
+
+const pageTitle = title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<link rel="icon" type="image/svg+xml" href={href('/favicon.svg')} />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={SITE_TITLE}
+  href={href('/rss.xml')}
+/>
+
+<meta property="og:type" content={type} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta name="twitter:card" content="summary" />
