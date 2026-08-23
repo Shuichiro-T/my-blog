@@ -1,4 +1,5 @@
 ---
+import Archive from '@/components/blog/Archive.astro';
 import BaseHead from '@/components/layout/BaseHead.astro';
 import Footer from '@/components/layout/Footer.astro';
 import Header from '@/components/layout/Header.astro';
@@ -21,9 +22,14 @@ const { title, description, type } = Astro.props;
   </head>
   <body>
     <Header />
-    <main class="container">
-      <slot />
-    </main>
+    <div class="page">
+      <aside class="sidebar">
+        <Archive />
+      </aside>
+      <main class="container">
+        <slot />
+      </main>
+    </div>
     <Footer />
   </body>
 </html>
@@ -31,5 +37,36 @@ const { title, description, type } = Astro.props;
 <style>
   main {
     padding-block: 2.5rem;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  /* PC 幅のときだけ、記事アーカイブを左サイドバーとして表示する */
+  @media (min-width: 1024px) {
+    .page {
+      display: grid;
+      grid-template-columns: 220px minmax(0, var(--content-width));
+      justify-content: center;
+      align-items: start;
+      gap: 2.5rem;
+      max-width: calc(220px + 2.5rem + var(--content-width) + 2.5rem);
+      margin-inline: auto;
+      padding-inline: 1.25rem;
+    }
+
+    .sidebar {
+      display: block;
+      padding-block: 2.5rem;
+      position: sticky;
+      top: 1.5rem;
+    }
+
+    .page .container {
+      max-width: none;
+      padding-inline: 0;
+      margin-inline: 0;
+    }
   }
 </style>

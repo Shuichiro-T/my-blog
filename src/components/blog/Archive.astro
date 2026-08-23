@@ -1,0 +1,105 @@
+---
+import { href } from '@/lib/format';
+import { getArchives } from '@/lib/posts';
+
+const archives = await getArchives();
+---
+
+{
+  archives.length > 0 && (
+    <nav class="archive" aria-label="年月別の記事一覧">
+      <h2>Archive</h2>
+      <ul class="years">
+        {archives.map(({ year, count, months }, i) => (
+          <li>
+            <details open={i === 0}>
+              <summary>
+                <a href={href(`/blog/${year}`)}>{year}年</a>
+                <span class="count">{count}</span>
+              </summary>
+              <ul class="months">
+                {months.map(({ month, count: monthCount }) => (
+                  <li>
+                    <a href={href(`/blog/${year}/${String(month).padStart(2, '0')}`)}>
+                      {month}月
+                    </a>
+                    <span class="count">{monthCount}</span>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<style>
+  .archive {
+    font-size: 0.875rem;
+  }
+
+  h2 {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .years {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-block: 0.25rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary a {
+    color: var(--color-fg);
+    font-weight: 600;
+  }
+
+  .months {
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0 0 0 0.75rem;
+  }
+
+  .months li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-block: 0.2rem;
+  }
+
+  .months a {
+    color: var(--color-muted);
+  }
+
+  .months a:hover {
+    color: var(--color-accent);
+  }
+
+  .count {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-muted);
+    opacity: 0.8;
+  }
+</style>

@@ -42,3 +42,53 @@ export async function getAllTags(): Promise<{ tag: string; count: number }[]> {
 export function postPath(post: Post): string {
   return `/blog/${post.id}`;
 }
+
+export interface ArchiveMonth {
+  year: number;
+  /** 1〜12 */
+  month: number;
+  count: number;
+}
+
+export interface ArchiveYear {
+  year: number;
+  count: number;
+  /** 新しい月順 */
+  months: ArchiveMonth[];
+}
+
+/** 公開記事を「年 → 月」の階層でグルーピングし、新しい順で返す */
+export async function getArchives(): Promise<ArchiveYear[]> {
+  const posts = await getPublishedPosts();
+  const years = new Map<number, Map<number, number>>();
+
+  for (const post of posts) {
+    const { pubDate } = post.data;
+    const year = pubDate.getUTCFullYear();
+    const month = pubDate.getUTCMonth() + 1;
+    const months = years.get(year) ?? new Map<number, number>();
+    months.set(month, (months.get(month) ?? 0) + 1);
+    years.set(year, months);
+  }
+
+  return [...years.entries()]
+    .sort((a, b) => b[0] - a[0])
+    .map(([year, months]) => ({
+      year,
+      count: [...months.values()].reduce((sum, n) => sum + n, 0),
+      months: [...months.entries()]
+        .sort((a, b) => b[0] - a[0])
+        .map(([month, count]) => ({ year, month, count })),
+    }));
+}
+
+/** 指定した年（と任意で月）の記事を新しい順で返す */
+export async function getPostsByYearMonth(year: number, month?: number): Promise<Post[]> {
+  const posts = await getPublishedPosts();
+  return posts.filter((post) => {
+    const { pubDate } = post.data;
+    if (pubDate.getUTCFullYear() !== year) return false;
+    if (month !== undefined && pubDate.getUTCMonth() + 1 !== month) return false;
+    return true;
+  });
+}
