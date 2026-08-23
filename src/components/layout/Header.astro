@@ -1,5 +1,6 @@
 ---
 import PaletteSwitcher from '@/components/common/PaletteSwitcher.astro';
+import ThemeToggle from '@/components/common/ThemeToggle.astro';
 import { NAV_LINKS, SITE_TITLE } from '@/consts';
 import { href } from '@/lib/format';
 
@@ -28,7 +29,10 @@ function isActive(path: string): boolean {
         ))
       }
     </nav>
-    <PaletteSwitcher />
+    <div class="switchers">
+      <ThemeToggle />
+      <PaletteSwitcher />
+    </div>
   </div>
 </header>
 
@@ -64,5 +68,10 @@ function isActive(path: string): boolean {
   nav a[aria-current='page'] {
     color: var(--color-fg);
     font-weight: 600;
+  }
+
+  .switchers {
+    display: flex;
+    gap: 0.5rem;
   }
 </style>
