@@ -19,7 +19,7 @@ my-blog/
 ├── src/
 │   ├── components/
 │   │   ├── common/              # 汎用パーツ（Tag, FormattedDate）
-│   │   ├── blog/                # 記事まわり（PostCard, PostList, Pagination）
+│   │   ├── blog/                # 記事まわり（PostCard, PostList, Pagination, Archive）
 │   │   └── layout/              # BaseHead, Header, Footer
 │   ├── content/
 │   │   └── blog/
@@ -41,6 +41,8 @@ my-blog/
 │   │   ├── blog/
 │   │   │   ├── index.astro      # /blog（1ページ目）
 │   │   │   ├── page/[page].astro# /blog/page/2 以降
+│   │   │   ├── [year]/index.astro       # /blog/2026
+│   │   │   ├── [year]/[month]/index.astro # /blog/2026/08
 │   │   │   └── [...slug].astro  # /blog/hello-astro
 │   │   └── tags/
 │   │       ├── index.astro      # /tags
@@ -100,6 +102,8 @@ Astro の規約で、ここのファイル階層がそのまま URL になりま
 | `/` | `src/pages/index.astro` |
 | `/blog` | `src/pages/blog/index.astro` |
 | `/blog/page/2` | `src/pages/blog/page/[page].astro` |
+| `/blog/<year>` | `src/pages/blog/[year]/index.astro` |
+| `/blog/<year>/<month>` | `src/pages/blog/[year]/[month]/index.astro` |
 | `/blog/<slug>` | `src/pages/blog/[...slug].astro` |
 | `/tags` | `src/pages/tags/index.astro` |
 | `/tags/<tag>` | `src/pages/tags/[tag].astro` |
