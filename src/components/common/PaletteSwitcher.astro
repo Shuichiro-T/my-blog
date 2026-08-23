@@ -1,0 +1,50 @@
+---
+import { DEFAULT_PALETTE_ID, PALETTE_STORAGE_KEY, PALETTES } from '@/lib/palettes';
+---
+
+<div class="palette-switcher">
+  <label for="palette-select" class="visually-hidden">配色</label>
+  <select id="palette-select">
+    {PALETTES.map((palette) => <option value={palette.id}>{palette.label}</option>)}
+  </select>
+</div>
+
+<script is:inline define:vars={{ DEFAULT_PALETTE_ID, PALETTE_STORAGE_KEY }}>
+  const select = document.getElementById('palette-select');
+  if (select) {
+    select.value = document.documentElement.dataset.palette || DEFAULT_PALETTE_ID;
+    select.addEventListener('change', () => {
+      const value = select.value;
+      document.documentElement.dataset.palette = value;
+      try {
+        localStorage.setItem(PALETTE_STORAGE_KEY, value);
+      } catch {
+        // localStorage が使えない環境（プライベートモード等）では保存をあきらめる
+      }
+    });
+  }
+</script>
+
+<style>
+  .palette-switcher select {
+    font: inherit;
+    font-size: 0.875rem;
+    color: var(--color-fg);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
