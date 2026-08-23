@@ -23,6 +23,57 @@
   }
 }
 
+/*
+ * カラーパレット切り替え。色はデジタル庁ダッシュボードガイドブックのカラーコードに準拠する。
+ * https://www.digital.go.jp/resources/dashboard-guidebook/color-palette/color-code
+ * <html data-palette="..."> は PaletteSwitcher / BaseHead のスクリプトが設定する。
+ */
+:root[data-palette='solid-gray'] {
+  --color-accent: #4d4d4d;
+}
+:root[data-palette='blue'] {
+  --color-accent: #0017c1;
+}
+:root[data-palette='light-blue'] {
+  --color-accent: #0055ad;
+}
+:root[data-palette='cyan'] {
+  --color-accent: #006f83;
+}
+:root[data-palette='green'] {
+  --color-accent: #115a36;
+}
+:root[data-palette='orange'] {
+  --color-accent: #ac3e00;
+}
+:root[data-palette='red'] {
+  --color-accent: #ce0000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-palette='solid-gray'] {
+    --color-accent: #999999;
+  }
+  :root[data-palette='blue'] {
+    --color-accent: #7096f8;
+  }
+  :root[data-palette='light-blue'] {
+    --color-accent: #57b8ff;
+  }
+  :root[data-palette='cyan'] {
+    --color-accent: #2bc8e4;
+  }
+  :root[data-palette='green'] {
+    --color-accent: #51b883;
+  }
+  :root[data-palette='orange'] {
+    --color-accent: #ff8d44;
+  }
+  :root[data-palette='red'] {
+    --color-accent: #ff7171;
+  }
+}
+
 *,
 *::before,
 *::after {
