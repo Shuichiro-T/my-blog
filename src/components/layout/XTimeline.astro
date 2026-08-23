@@ -1,0 +1,18 @@
+---
+import { X_USERNAME } from '@/consts';
+---
+
+<aside class="x-timeline" aria-label={`X (@${X_USERNAME}) の最新の投稿`}>
+  <a class="twitter-timeline" data-width="300" href={`https://twitter.com/${X_USERNAME}`}>
+    @{X_USERNAME} の投稿を読み込み中です...
+  </a>
+</aside>
+
+<script is:inline>
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.querySelectorAll('.twitter-timeline').forEach((el) => {
+      el.dataset.theme = 'dark';
+    });
+  }
+</script>
+<script is:inline async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
