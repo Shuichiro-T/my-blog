@@ -3,7 +3,7 @@ import { X_USERNAME } from '@/consts';
 ---
 
 <aside class="x-timeline" aria-label={`X (@${X_USERNAME}) の最新の投稿`}>
-  <a class="twitter-timeline" data-width="300" href={`https://twitter.com/${X_USERNAME}`}>
+  <a class="twitter-timeline" data-width="300" href={`https://x.com/${X_USERNAME}`}>
     @{X_USERNAME} の投稿を読み込み中です...
   </a>
 </aside>
@@ -15,4 +15,4 @@ import { X_USERNAME } from '@/consts';
     });
   }
 </script>
-<script is:inline async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script is:inline async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
