@@ -1,27 +1,26 @@
 /**
- * カラーパレット（アクセントカラー）の定義。
+ * カラーパレット（配色）の定義。
  * 色はデジタル庁デザインシステム(DADS)のカラーパレットに準拠する。
  * https://design.digital.go.jp/dads/foundations/color/color-palette/
  *
- * light は各パレットの Highlight（背景用強調色）、
- * dark はダーク背景でも視認性を保てるよう一段明るいチャートカラーを採用している。
- * 背景色・文字色（各パレットの 50 / 1200）は src/styles/global.css 側で定義する。
+ * 一番下の `dark` はダークモード（グレー基調）を表す特別なパレットで、
+ * 選択すると背景・文字色が反転した暗い配色になる。
+ * 実際の色（背景色・文字色・アクセントカラー）は src/styles/global.css 側で定義する。
  */
 export interface Palette {
   id: string;
   label: string;
-  light: string;
-  dark: string;
 }
 
 export const PALETTES: Palette[] = [
-  { id: 'solid-gray', label: 'グレー', light: '#4D4D4D', dark: '#999999' },
-  { id: 'blue', label: 'ブルー', light: '#0017C1', dark: '#7096F8' },
-  { id: 'light-blue', label: '水色', light: '#0055AD', dark: '#57B8FF' },
-  { id: 'cyan', label: 'シアン', light: '#006F83', dark: '#2BC8E4' },
-  { id: 'green', label: 'グリーン', light: '#115A36', dark: '#51B883' },
-  { id: 'orange', label: 'オレンジ', light: '#AC3E00', dark: '#FF8D44' },
-  { id: 'red', label: 'レッド', light: '#CE0000', dark: '#FF7171' },
+  { id: 'solid-gray', label: 'グレー' },
+  { id: 'blue', label: 'ブルー' },
+  { id: 'light-blue', label: '水色' },
+  { id: 'cyan', label: 'シアン' },
+  { id: 'green', label: 'グリーン' },
+  { id: 'orange', label: 'オレンジ' },
+  { id: 'red', label: 'レッド' },
+  { id: 'dark', label: 'ダーク' },
 ];
 
 export const DEFAULT_PALETTE_ID = 'blue';

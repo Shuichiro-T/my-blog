@@ -1,6 +1,5 @@
 ---
 import PaletteSwitcher from '@/components/common/PaletteSwitcher.astro';
-import ThemeToggle from '@/components/common/ThemeToggle.astro';
 import { NAV_LINKS, SITE_TITLE } from '@/consts';
 import { href } from '@/lib/format';
 
@@ -30,7 +29,6 @@ function isActive(path: string): boolean {
       }
     </nav>
     <div class="switchers">
-      <ThemeToggle />
       <PaletteSwitcher />
     </div>
   </div>
