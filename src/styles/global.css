@@ -24,52 +24,82 @@
 }
 
 /*
- * カラーパレット切り替え。色はデジタル庁ダッシュボードガイドブックのカラーコードに準拠する。
- * https://www.digital.go.jp/resources/dashboard-guidebook/color-palette/color-code
+ * カラーパレット切り替え。色はデジタル庁デザインシステム(DADS)のカラーパレットに準拠する。
+ * https://design.digital.go.jp/dads/foundations/color/color-palette/
+ * 背景は各色の 50、文字色は 1200（グレーのみ 1200 段階がないため最も濃い 900）を使う。
+ * ダークモードは可読性を保つため 50 / 1200(900) の役割を反転させる。
  * <html data-palette="..."> は PaletteSwitcher / BaseHead のスクリプトが設定する。
  */
 :root[data-palette='solid-gray'] {
+  --color-bg: #f2f2f2;
+  --color-fg: #1a1a1a;
   --color-accent: #4d4d4d;
 }
 :root[data-palette='blue'] {
+  --color-bg: #e8f1fe;
+  --color-fg: #000060;
   --color-accent: #0017c1;
 }
 :root[data-palette='light-blue'] {
+  --color-bg: #f0f9ff;
+  --color-fg: #00234b;
   --color-accent: #0055ad;
 }
 :root[data-palette='cyan'] {
+  --color-bg: #e9f7f9;
+  --color-fg: #003741;
   --color-accent: #006f83;
 }
 :root[data-palette='green'] {
+  --color-bg: #e6f5ec;
+  --color-fg: #032213;
   --color-accent: #115a36;
 }
 :root[data-palette='orange'] {
+  --color-bg: #ffeee2;
+  --color-fg: #541e00;
   --color-accent: #ac3e00;
 }
 :root[data-palette='red'] {
+  --color-bg: #fdeeee;
+  --color-fg: #620000;
   --color-accent: #ce0000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root[data-palette='solid-gray'] {
+    --color-bg: #1a1a1a;
+    --color-fg: #f2f2f2;
     --color-accent: #999999;
   }
   :root[data-palette='blue'] {
+    --color-bg: #000060;
+    --color-fg: #e8f1fe;
     --color-accent: #7096f8;
   }
   :root[data-palette='light-blue'] {
+    --color-bg: #00234b;
+    --color-fg: #f0f9ff;
     --color-accent: #57b8ff;
   }
   :root[data-palette='cyan'] {
+    --color-bg: #003741;
+    --color-fg: #e9f7f9;
     --color-accent: #2bc8e4;
   }
   :root[data-palette='green'] {
+    --color-bg: #032213;
+    --color-fg: #e6f5ec;
     --color-accent: #51b883;
   }
   :root[data-palette='orange'] {
+    --color-bg: #541e00;
+    --color-fg: #ffeee2;
     --color-accent: #ff8d44;
   }
   :root[data-palette='red'] {
+    --color-bg: #620000;
+    --color-fg: #fdeeee;
     --color-accent: #ff7171;
   }
 }

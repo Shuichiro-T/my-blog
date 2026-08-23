@@ -1,10 +1,11 @@
 /**
  * カラーパレット（アクセントカラー）の定義。
- * 色はデジタル庁ダッシュボードガイドブックのカラーコードに準拠する。
- * https://www.digital.go.jp/resources/dashboard-guidebook/color-palette/color-code
+ * 色はデジタル庁デザインシステム(DADS)のカラーパレットに準拠する。
+ * https://design.digital.go.jp/dads/foundations/color/color-palette/
  *
  * light は各パレットの Highlight（背景用強調色）、
  * dark はダーク背景でも視認性を保てるよう一段明るいチャートカラーを採用している。
+ * 背景色・文字色（各パレットの 50 / 1200）は src/styles/global.css 側で定義する。
  */
 export interface Palette {
   id: string;
