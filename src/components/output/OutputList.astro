@@ -1,0 +1,19 @@
+---
+import OutputCard from '@/components/output/OutputCard.astro';
+import type { Output } from '@/lib/outputs';
+
+interface Props {
+  outputs: Output[];
+  emptyMessage?: string;
+}
+
+const { outputs, emptyMessage = 'まだアウトプットがありません。' } = Astro.props;
+---
+
+{
+  outputs.length === 0 ? (
+    <p class="muted">{emptyMessage}</p>
+  ) : (
+    outputs.map((output) => <OutputCard output={output} />)
+  )
+}

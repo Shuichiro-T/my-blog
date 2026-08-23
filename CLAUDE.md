@@ -37,6 +37,16 @@ npm run new-post -- <slug>         # 記事のひな形を作る
 
 詳細は `docs/writing-guide.md`。
 
+## アウトプット
+
+- ブログとは別に、登壇資料・Zenn/Qiita記事・技術書典の同人誌などの外部リンク一覧を `/outputs` で持つ
+- 置き場所: `src/content/outputs/<任意のファイル名>.yaml`（**1アイテム = 1ファイル**、本文なし）
+- SpeakerDeck/Zenn/Qiita には RSS があるが、会社アカウントの一部だけ載せたい・技術書典にはRSSがない、
+  という事情から自動取得はせず**すべて手動登録**にしている
+- スキーマは `src/content.config.ts` の `outputs` コレクション
+
+詳細は `docs/outputs-guide.md`。
+
 ## リンクの書き方
 
 `astro.config.mjs` で `base: '/my-blog'` を設定しているため、手書きの `href` に

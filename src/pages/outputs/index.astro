@@ -1,0 +1,12 @@
+---
+import OutputList from '@/components/output/OutputList.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getAllOutputs } from '@/lib/outputs';
+
+const outputs = await getAllOutputs();
+---
+
+<BaseLayout title="Outputs" description="登壇資料・執筆・同人誌などアウトプットの一覧。">
+  <h1>Outputs</h1>
+  <OutputList outputs={outputs} />
+</BaseLayout>

@@ -15,9 +15,18 @@ export const POSTS_PER_PAGE = 10;
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/blog', label: 'Blog' },
+  { href: '/outputs', label: 'Outputs' },
   { href: '/tags', label: 'Tags' },
   { href: '/about', label: 'About' },
 ] as const;
+
+/** アウトプット一覧の種別 → 表示ラベル */
+export const OUTPUT_TYPES = {
+  speakerdeck: 'SpeakerDeck',
+  zenn: 'Zenn',
+  qiita: 'Qiita',
+  book: '技術書典',
+} as const;
 
 /** フッターの外部リンク */
 export const SOCIAL_LINKS = [

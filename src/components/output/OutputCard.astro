@@ -1,0 +1,66 @@
+---
+import FormattedDate from '@/components/common/FormattedDate.astro';
+import Tag from '@/components/common/Tag.astro';
+import { OUTPUT_TYPES } from '@/consts';
+import type { Output } from '@/lib/outputs';
+
+interface Props {
+  output: Output;
+}
+
+const { output } = Astro.props;
+---
+
+<article class="card">
+  <div class="meta">
+    <FormattedDate date={output.data.pubDate} />
+    <span class="type">{OUTPUT_TYPES[output.data.type]}</span>
+  </div>
+  <h2><a href={output.data.url} target="_blank" rel="noopener noreferrer">{output.data.title}</a></h2>
+  {
+    output.data.tags.length > 0 && (
+      <div class="tags">
+        {output.data.tags.map((tag) => (
+          <Tag tag={tag} />
+        ))}
+      </div>
+    )
+  }
+</article>
+
+<style>
+  .card {
+    padding-block: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+  }
+
+  .type {
+    padding: 0 0.4rem;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+  }
+
+  h2 {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  h2 a {
+    color: var(--color-fg);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+</style>

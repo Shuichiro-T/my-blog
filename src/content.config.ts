@@ -36,4 +36,28 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+/**
+ * アウトプット（SpeakerDeck・Zenn・Qiita・技術書典など）はブログと違い、
+ * サイト内に本文を持たない外部リンクの一覧として管理する。
+ * 1アイテム = 1ファイル（YAML）で src/content/outputs/ に置く。
+ */
+const outputs = defineCollection({
+  loader: glob({
+    pattern: '*.yaml',
+    base: './src/content/outputs',
+  }),
+  schema: z.object({
+    /** タイトル */
+    title: z.string(),
+    /** リンク先 URL */
+    url: z.string().url(),
+    /** 種別。表示ラベルは consts.ts の OUTPUT_TYPES 参照 */
+    type: z.enum(['speakerdeck', 'zenn', 'qiita', 'book']),
+    /** 公開日 (YYYY-MM-DD) */
+    pubDate: z.coerce.date(),
+    /** タグ。英小文字ケバブケース推奨 */
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { blog, outputs };

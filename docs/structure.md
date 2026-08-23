@@ -10,6 +10,7 @@ my-blog/
 ├── docs/                        # ブログ運営側のドキュメント（サイトには出ない）
 │   ├── structure.md             # このファイル
 │   ├── writing-guide.md         # 記事の書き方・フロントマター規約
+│   ├── outputs-guide.md         # アウトプット（外部リンク一覧）の登録方法
 │   └── deployment.md            # GitHub Pages への公開手順
 ├── scripts/
 │   └── new-post.mjs             # 記事のひな形生成
@@ -20,13 +21,15 @@ my-blog/
 │   ├── components/
 │   │   ├── common/              # 汎用パーツ（Tag, FormattedDate）
 │   │   ├── blog/                # 記事まわり（PostCard, PostList, Pagination, Archive）
+│   │   ├── output/              # アウトプットまわり（OutputCard, OutputList）
 │   │   └── layout/              # BaseHead, Header, Footer
 │   ├── content/
-│   │   └── blog/
-│   │       └── 2026/            # 年で区切る（URL には出ない）
-│   │           └── hello-astro/
-│   │               ├── index.md # 記事本文
-│   │               └── *.png    # その記事だけで使う画像
+│   │   ├── blog/
+│   │   │   └── 2026/            # 年で区切る（URL には出ない）
+│   │   │       └── hello-astro/
+│   │   │           ├── index.md # 記事本文
+│   │   │           └── *.png    # その記事だけで使う画像
+│   │   └── outputs/             # SpeakerDeck・Zenn・Qiita・技術書典など（1アイテム=1YAML）
 │   ├── layouts/
 │   │   ├── BaseLayout.astro     # 全ページ共通の枠
 │   │   └── PostLayout.astro     # 記事ページの枠
@@ -44,13 +47,15 @@ my-blog/
 │   │   │   ├── [year]/index.astro       # /blog/2026
 │   │   │   ├── [year]/[month]/index.astro # /blog/2026/08
 │   │   │   └── [...slug].astro  # /blog/hello-astro
+│   │   ├── outputs/
+│   │   │   └── index.astro      # /outputs
 │   │   └── tags/
 │   │       ├── index.astro      # /tags
 │   │       └── [tag].astro      # /tags/astro
 │   ├── styles/
 │   │   └── global.css
 │   ├── consts.ts                # サイト名・ナビ・1ページの件数などの定数
-│   └── content.config.ts        # フロントマターのスキーマ定義
+│   └── content.config.ts        # フロントマター・アウトプットのスキーマ定義
 ├── astro.config.mjs
 ├── package.json
 ├── tsconfig.json
@@ -74,6 +79,12 @@ Astro の規約で、ここのファイル階層がそのまま URL になりま
 
 フォルダ名がそのまま URL の slug になります（`hello-astro/` → `/blog/hello-astro`）。
 年フォルダはファイル一覧を見やすくするためだけのもので、URL には出ません。
+
+### `src/content/outputs/`
+
+SpeakerDeck・Zenn・Qiita・技術書典などの外部リンク一覧です。ブログと違い本文を
+持たないので、**1アイテム = 1YAMLファイル**で管理します。登録方法は
+`docs/outputs-guide.md` 参照。
 
 ### `src/lib/`
 
@@ -105,6 +116,7 @@ Astro の規約で、ここのファイル階層がそのまま URL になりま
 | `/blog/<year>` | `src/pages/blog/[year]/index.astro` |
 | `/blog/<year>/<month>` | `src/pages/blog/[year]/[month]/index.astro` |
 | `/blog/<slug>` | `src/pages/blog/[...slug].astro` |
+| `/outputs` | `src/pages/outputs/index.astro` |
 | `/tags` | `src/pages/tags/index.astro` |
 | `/tags/<tag>` | `src/pages/tags/[tag].astro` |
 | `/about` | `src/pages/about.astro` |
