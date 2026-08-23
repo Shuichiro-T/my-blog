@@ -12,15 +12,18 @@
   --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0d1117;
-    --color-fg: #e6edf3;
-    --color-muted: #8d96a0;
-    --color-border: #30363d;
-    --color-accent: #4493f8;
-    --color-code-bg: #161b22;
-  }
+/*
+ * ダークモードは OS 設定 (prefers-color-scheme) には依存せず、
+ * ユーザーが ThemeToggle で明示的に選んだ場合にのみ表示する。
+ * <html data-theme="dark"> は ThemeToggle / BaseHead のスクリプトが設定する。
+ */
+:root[data-theme='dark'] {
+  --color-bg: #0d1117;
+  --color-fg: #e6edf3;
+  --color-muted: #8d96a0;
+  --color-border: #30363d;
+  --color-accent: #4493f8;
+  --color-code-bg: #161b22;
 }
 
 /*
@@ -66,42 +69,40 @@
   --color-accent: #ce0000;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root[data-palette='solid-gray'] {
-    --color-bg: #1a1a1a;
-    --color-fg: #f2f2f2;
-    --color-accent: #999999;
-  }
-  :root[data-palette='blue'] {
-    --color-bg: #000060;
-    --color-fg: #e8f1fe;
-    --color-accent: #7096f8;
-  }
-  :root[data-palette='light-blue'] {
-    --color-bg: #00234b;
-    --color-fg: #f0f9ff;
-    --color-accent: #57b8ff;
-  }
-  :root[data-palette='cyan'] {
-    --color-bg: #003741;
-    --color-fg: #e9f7f9;
-    --color-accent: #2bc8e4;
-  }
-  :root[data-palette='green'] {
-    --color-bg: #032213;
-    --color-fg: #e6f5ec;
-    --color-accent: #51b883;
-  }
-  :root[data-palette='orange'] {
-    --color-bg: #541e00;
-    --color-fg: #ffeee2;
-    --color-accent: #ff8d44;
-  }
-  :root[data-palette='red'] {
-    --color-bg: #620000;
-    --color-fg: #fdeeee;
-    --color-accent: #ff7171;
-  }
+:root[data-theme='dark'][data-palette='solid-gray'] {
+  --color-bg: #1a1a1a;
+  --color-fg: #f2f2f2;
+  --color-accent: #999999;
+}
+:root[data-theme='dark'][data-palette='blue'] {
+  --color-bg: #000060;
+  --color-fg: #e8f1fe;
+  --color-accent: #7096f8;
+}
+:root[data-theme='dark'][data-palette='light-blue'] {
+  --color-bg: #00234b;
+  --color-fg: #f0f9ff;
+  --color-accent: #57b8ff;
+}
+:root[data-theme='dark'][data-palette='cyan'] {
+  --color-bg: #003741;
+  --color-fg: #e9f7f9;
+  --color-accent: #2bc8e4;
+}
+:root[data-theme='dark'][data-palette='green'] {
+  --color-bg: #032213;
+  --color-fg: #e6f5ec;
+  --color-accent: #51b883;
+}
+:root[data-theme='dark'][data-palette='orange'] {
+  --color-bg: #541e00;
+  --color-fg: #ffeee2;
+  --color-accent: #ff8d44;
+}
+:root[data-theme='dark'][data-palette='red'] {
+  --color-bg: #620000;
+  --color-fg: #fdeeee;
+  --color-accent: #ff7171;
 }
 
 *,
