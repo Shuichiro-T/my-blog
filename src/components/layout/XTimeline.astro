@@ -4,15 +4,6 @@ import { X_USERNAME } from '@/consts';
 
 <aside class="x-timeline" aria-label={`X (@${X_USERNAME}) の最新の投稿`}>
   <a class="twitter-timeline" data-width="300" href={`https://x.com/${X_USERNAME}`}>
-    @{X_USERNAME} の投稿を読み込み中です...
+    <a class="twitter-timeline" href="https://x.com/shucho0103?ref_src=twsrc%5Etfw">Posts by shucho0103</a> <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
   </a>
 </aside>
-
-<script is:inline>
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.querySelectorAll('.twitter-timeline').forEach((el) => {
-      el.dataset.theme = 'dark';
-    });
-  }
-</script>
-<script is:inline async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
