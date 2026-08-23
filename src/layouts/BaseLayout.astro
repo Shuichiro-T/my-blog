@@ -3,6 +3,7 @@ import Archive from '@/components/blog/Archive.astro';
 import BaseHead from '@/components/layout/BaseHead.astro';
 import Footer from '@/components/layout/Footer.astro';
 import Header from '@/components/layout/Header.astro';
+import XTimeline from '@/components/layout/XTimeline.astro';
 import { SITE_LANG } from '@/consts';
 import '@/styles/global.css';
 
@@ -23,12 +24,15 @@ const { title, description, type } = Astro.props;
   <body>
     <Header />
     <div class="page">
-      <aside class="sidebar">
+      <aside class="sidebar sidebar-left">
         <Archive />
       </aside>
       <main class="container">
         <slot />
       </main>
+      <aside class="sidebar sidebar-right">
+        <XTimeline />
+      </aside>
     </div>
     <Footer />
   </body>
@@ -56,7 +60,7 @@ const { title, description, type } = Astro.props;
       padding-inline: 1.25rem;
     }
 
-    .sidebar {
+    .sidebar-left {
       display: block;
       padding-block: 2.5rem;
       position: sticky;
@@ -67,6 +71,23 @@ const { title, description, type } = Astro.props;
       max-width: none;
       padding-inline: 0;
       margin-inline: 0;
+    }
+  }
+
+  /* さらに幅に余裕がある画面でだけ、X の最新投稿を右サイドバーとして表示する */
+  @media (min-width: 1280px) {
+    .page {
+      grid-template-columns: 220px minmax(0, var(--content-width)) 300px;
+      max-width: calc(
+        220px + 2.5rem + var(--content-width) + 2.5rem + 300px
+      );
+    }
+
+    .sidebar-right {
+      display: block;
+      padding-block: 2.5rem;
+      position: sticky;
+      top: 1.5rem;
     }
   }
 </style>
