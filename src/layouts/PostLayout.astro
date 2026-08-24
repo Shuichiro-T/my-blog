@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import FormattedDate from '@/components/common/FormattedDate.astro';
 import Tag from '@/components/common/Tag.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { href } from '@/lib/format';
 import type { Post } from '@/lib/posts';
 
 interface Props {
@@ -13,15 +14,14 @@ const { post } = Astro.props;
 const { title, description, pubDate, updatedDate, tags, draft, heroImage, heroImageAlt } =
   post.data;
 
-// OGP の og:image は絶対 URL が必要なので、記事フォルダの相対画像パスを絶対 URL に変換する
-const ogImage = heroImage ? new URL(heroImage.src, Astro.site) : undefined;
+const ogImage = new URL(href(`/og/${post.id}.png`), Astro.site).toString();
 ---
 
 <BaseLayout
   title={title}
   description={description}
   type="article"
-  image={ogImage?.toString()}
+  image={ogImage}
   imageAlt={heroImageAlt}
 >
   <article>
