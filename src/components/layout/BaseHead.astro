@@ -8,9 +8,13 @@ interface Props {
   description: string;
   /** OGP の og:type。記事ページでは 'article' を渡す */
   type?: 'website' | 'article';
+  /** OGP 画像の絶対 URL。省略した場合は画像なしのカードになる */
+  image?: string;
+  /** OGP 画像の代替テキスト */
+  imageAlt?: string;
 }
 
-const { title, description, type = 'website' } = Astro.props;
+const { title, description, type = 'website', image, imageAlt } = Astro.props;
 
 const pageTitle = title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -49,4 +53,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={SITE_TITLE} />
-<meta name="twitter:card" content="summary" />
+{image && <meta property="og:image" content={image} />}
+{image && <meta property="og:image:alt" content={imageAlt ?? pageTitle} />}
+<meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+{image && <meta name="twitter:image" content={image} />}
