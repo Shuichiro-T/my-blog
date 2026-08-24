@@ -10,15 +10,25 @@ interface Props {
   title: string;
   description: string;
   type?: 'website' | 'article';
+  /** OGP 画像の絶対 URL。省略した場合は画像なしのカードになる */
+  image?: string;
+  /** OGP 画像の代替テキスト */
+  imageAlt?: string;
 }
 
-const { title, description, type } = Astro.props;
+const { title, description, type, image, imageAlt } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={SITE_LANG}>
   <head>
-    <BaseHead title={title} description={description} type={type} />
+    <BaseHead
+      title={title}
+      description={description}
+      type={type}
+      image={image}
+      imageAlt={imageAlt}
+    />
   </head>
   <body>
     <Header />
