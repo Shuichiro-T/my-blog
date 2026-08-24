@@ -23,7 +23,7 @@ export const PALETTES: Palette[] = [
   { id: 'dark', label: 'ダーク' },
 ];
 
-export const DEFAULT_PALETTE_ID = 'blue';
+export const DEFAULT_PALETTE_ID = 'solid-gray';
 
 export const PALETTE_STORAGE_KEY = 'palette';
 

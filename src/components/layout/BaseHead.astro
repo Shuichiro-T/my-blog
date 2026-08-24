@@ -1,7 +1,7 @@
 ---
 import { SITE_TITLE } from '@/consts';
 import { href } from '@/lib/format';
-import { PALETTE_IDS, PALETTE_STORAGE_KEY } from '@/lib/palettes';
+import { DEFAULT_PALETTE_ID, PALETTE_IDS, PALETTE_STORAGE_KEY } from '@/lib/palettes';
 
 interface Props {
   title: string;
@@ -16,15 +16,17 @@ const pageTitle = title === SITE_TITLE ? title : `${title} | ${SITE_TITLE}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<script is:inline define:vars={{ PALETTE_IDS, PALETTE_STORAGE_KEY }}>
+<script is:inline define:vars={{ DEFAULT_PALETTE_ID, PALETTE_IDS, PALETTE_STORAGE_KEY }}>
+  let palette = DEFAULT_PALETTE_ID;
   try {
     const storedPalette = localStorage.getItem(PALETTE_STORAGE_KEY);
     if (storedPalette && PALETTE_IDS.includes(storedPalette)) {
-      document.documentElement.dataset.palette = storedPalette;
+      palette = storedPalette;
     }
   } catch {
     // localStorage が使えない環境（プライベートモード等）では既定色のままにする
   }
+  document.documentElement.dataset.palette = palette;
 </script>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
