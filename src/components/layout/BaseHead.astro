@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE } from '@/consts';
+import { GA_MEASUREMENT_ID, SITE_TITLE } from '@/consts';
 import { href } from '@/lib/format';
 import { DEFAULT_PALETTE_ID, PALETTE_IDS, PALETTE_STORAGE_KEY } from '@/lib/palettes';
 
@@ -59,3 +59,23 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 {image && <meta property="og:image:alt" content={imageAlt ?? pageTitle} />}
 <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
 {image && <meta name="twitter:image" content={image} />}
+
+{
+  import.meta.env.PROD && (
+    <>
+      <script
+        is:inline
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+      />
+      <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', GA_MEASUREMENT_ID);
+      </script>
+    </>
+  )
+}

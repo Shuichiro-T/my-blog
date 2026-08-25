@@ -8,6 +8,9 @@ export const SITE_DESCRIPTION =
 export const SITE_LANG = 'ja';
 export const AUTHOR = 'しゅういちろ';
 
+/** Google Analytics（GA4）の測定ID */
+export const GA_MEASUREMENT_ID = 'G-DW3GP79ZPE';
+
 /** 1ページあたりの記事数（記事一覧・タグ別一覧で使用） */
 export const POSTS_PER_PAGE = 10;
 
