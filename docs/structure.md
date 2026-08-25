@@ -18,14 +18,16 @@ my-blog/
 │   ├── favicon.svg
 │   └── robots.txt
 ├── src/
+│   ├── assets/
+│   │   └── fonts/                # OGP 画像生成で使うフォント（NotoSansJP-Bold.woff）
 │   ├── components/
-│   │   ├── common/              # 汎用パーツ（Tag, FormattedDate）
+│   │   ├── common/              # 汎用パーツ（Tag, FormattedDate, PaletteSwitcher）
 │   │   ├── blog/                # 記事まわり（PostCard, PostList, Pagination, Archive）
 │   │   ├── output/              # アウトプットまわり（OutputCard, OutputList）
 │   │   └── layout/              # BaseHead, Header, Footer
 │   ├── content/
 │   │   ├── blog/
-│   │   │   └── 2026/            # 年で区切る（URL には出ない）
+│   │   │   └── 2026/            # 年で区切る（フォルダパスがそのまま URL になる）
 │   │   │       └── hello-astro/
 │   │   │           ├── index.md # 記事本文
 │   │   │           └── *.png    # その記事だけで使う画像
@@ -35,6 +37,8 @@ my-blog/
 │   │   └── PostLayout.astro     # 記事ページの枠
 │   ├── lib/                     # ロジック（.astro に溜めない）
 │   │   ├── posts.ts             # 記事の取得・絞り込み・ソート
+│   │   ├── outputs.ts           # アウトプットの取得
+│   │   ├── palettes.ts          # カラーパレットの定義
 │   │   └── format.ts            # 日付整形、base 付き URL の組み立て
 │   ├── pages/                   # ← ここの階層がそのまま URL になる
 │   │   ├── index.astro          # /
@@ -46,7 +50,9 @@ my-blog/
 │   │   │   ├── page/[page].astro# /blog/page/2 以降
 │   │   │   ├── [year]/index.astro       # /blog/2026
 │   │   │   ├── [year]/[month]/index.astro # /blog/2026/08
-│   │   │   └── [...slug].astro  # /blog/hello-astro
+│   │   │   └── [...slug].astro  # /blog/2026/hello-astro（フォルダパス全体が slug）
+│   │   ├── og/
+│   │   │   └── [...slug].png.ts # /og/2026/hello-astro.png（OGP 画像を動的生成）
 │   │   ├── outputs/
 │   │   │   └── index.astro      # /outputs
 │   │   └── tags/
@@ -77,8 +83,8 @@ Astro の規約で、ここのファイル階層がそのまま URL になりま
 同じフォルダに入れます。こうすると記事の移動・削除がフォルダ単位で完結し、
 `public/images/` に全記事分の画像が混ざることもありません。
 
-フォルダ名がそのまま URL の slug になります（`hello-astro/` → `/blog/hello-astro`）。
-年フォルダはファイル一覧を見やすくするためだけのもので、URL には出ません。
+年フォルダを含めたフォルダパス全体が URL の slug になります
+（`2026/hello-astro/` → `/blog/2026/hello-astro`）。
 
 ### `src/content/outputs/`
 
@@ -88,9 +94,9 @@ SpeakerDeck・Zenn・Qiita・技術書典などの外部リンク一覧です。
 
 ### `src/lib/`
 
-日付整形や記事の絞り込みなどのロジックをここに集めます。`.astro` ファイルに
-ロジックが溜まると再利用もテストもしづらくなるので、2箇所以上で使うものは
-ここに切り出してください。
+日付整形や記事・アウトプットの取得、カラーパレットの定義などのロジックをここに
+集めます。`.astro` ファイルにロジックが溜まると再利用もテストもしづらくなるので、
+2箇所以上で使うものはここに切り出してください。
 
 ### `src/consts.ts`
 
@@ -115,15 +121,17 @@ SpeakerDeck・Zenn・Qiita・技術書典などの外部リンク一覧です。
 | `/blog/page/2` | `src/pages/blog/page/[page].astro` |
 | `/blog/<year>` | `src/pages/blog/[year]/index.astro` |
 | `/blog/<year>/<month>` | `src/pages/blog/[year]/[month]/index.astro` |
-| `/blog/<slug>` | `src/pages/blog/[...slug].astro` |
+| `/blog/<year>/<slug>` | `src/pages/blog/[...slug].astro` |
+| `/og/<year>/<slug>.png` | `src/pages/og/[...slug].png.ts`（OGP 画像） |
 | `/outputs` | `src/pages/outputs/index.astro` |
 | `/tags` | `src/pages/tags/index.astro` |
 | `/tags/<tag>` | `src/pages/tags/[tag].astro` |
 | `/about` | `src/pages/about.astro` |
 | `/rss.xml` | `src/pages/rss.xml.ts` |
 
-記事の URL は **`/blog/<slug>`**（年を含めない）に決めています。後から変えると
-既存リンクが切れるので、変更する場合はリダイレクトの用意も一緒に検討してください。
+記事の URL は **`/blog/<年>/<slug>`**（記事フォルダのパスがそのまま出る）です。
+後から変えると既存リンクが切れるので、変更する場合はリダイレクトの用意も
+一緒に検討してください。
 
 ### `base` について
 

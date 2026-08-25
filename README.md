@@ -40,6 +40,7 @@ npm run new-post -- hello-astro --title "Astro で始めるブログ"
 
 - [docs/structure.md](docs/structure.md) — フォルダ構成と URL 設計
 - [docs/writing-guide.md](docs/writing-guide.md) — 記事の書き方・フロントマター規約
+- [docs/outputs-guide.md](docs/outputs-guide.md) — アウトプット（外部リンク一覧）の登録方法
 - [docs/deployment.md](docs/deployment.md) — GitHub Pages への公開手順
 
 ## Claudeによる開発
@@ -63,4 +64,4 @@ Issueから `@claude` を呼び出すと、Claudeが変更内容を実装してP
 
 - [x] Astroプロジェクトの初期セットアップ
 - [x] ブログ記事テンプレートの作成
-- [ ] GitHub Pagesへのデプロイワークフロー（[手順](docs/deployment.md) — ワークフローファイルは手動追加が必要）
+- [x] GitHub Pagesへのデプロイワークフロー（[手順](docs/deployment.md)）
