@@ -26,7 +26,7 @@ npm run new-post -- <slug>         # 記事のひな形を作る
 ## 記事
 
 - 置き場所: `src/content/blog/<年>/<slug>/index.md`（**1記事 = 1フォルダ**）
-- URL: `/blog/<slug>`。年は URL に含めない
+- URL: `/blog/<年>/<slug>`（フォルダパス全体が URL になる）
 - slug は英小文字・数字・ハイフンのみ。日本語は使わない
 - その記事だけで使う画像は記事フォルダに置き、`./xxx.png` と相対パスで参照する
   （`public/` は favicon などサイト共通のファイル専用）

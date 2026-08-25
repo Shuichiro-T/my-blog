@@ -56,5 +56,5 @@ await mkdir(dir, { recursive: true });
 await writeFile(file, template, 'utf8');
 
 console.log(`作成しました: ${file}`);
-console.log(`URL: /blog/${slug}`);
+console.log(`URL: /blog/${now.getFullYear()}/${slug}`);
 console.log('公開するときは draft を false にしてください。');

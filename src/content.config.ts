@@ -4,17 +4,15 @@ import { glob } from 'astro/loaders';
 /**
  * 記事は「1記事 = 1フォルダ」で管理する。
  *
- *   src/content/blog/2026/hello-astro/index.md  → /blog/hello-astro
+ *   src/content/blog/2026/hello-astro/index.md  → /blog/2026/hello-astro
  *   src/content/blog/2026/hello-astro/hero.png  → 同じフォルダに画像を同梱
- *
- * 年フォルダはファイル一覧を見やすくするためだけのもので、URL には含めない。
  */
 const blog = defineCollection({
   loader: glob({
     pattern: '**/index.md',
     base: './src/content/blog',
-    // '2026/hello-astro/index.md' → 'hello-astro'
-    generateId: ({ entry }) => entry.split('/').at(-2)!,
+    // '2026/hello-astro/index.md' → '2026/hello-astro'
+    generateId: ({ entry }) => entry.replace(/\/index\.md$/, ''),
   }),
   schema: ({ image }) =>
     z.object({
