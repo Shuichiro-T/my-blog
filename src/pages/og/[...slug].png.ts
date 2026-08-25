@@ -3,7 +3,7 @@ import { Resvg } from '@resvg/resvg-js';
 import fs from 'node:fs';
 import path from 'node:path';
 import satori from 'satori';
-import { AUTHOR } from '@/consts';
+import { AUTHOR, SITE_TITLE } from '@/consts';
 import { getPublishedPosts } from '@/lib/posts';
 
 const OG_WIDTH = 1200;
@@ -21,12 +21,41 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getPublishedPosts();
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { title: post.data.title },
+    props: {
+      title: post.data.title,
+      tags: post.data.tags,
+      pubDate: post.data.pubDate,
+    },
   }));
 };
 
+function formatDate(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}.${m}.${d}`;
+}
+
 export const GET: APIRoute = async ({ props }) => {
-  const { title } = props as { title: string };
+  const { title, tags, pubDate } = props as {
+    title: string;
+    tags: string[];
+    pubDate: Date;
+  };
+
+  const tagBadges = tags.map((tag) => ({
+    type: 'div',
+    props: {
+      style: {
+        fontSize: '22px',
+        color: '#4d4d4d',
+        backgroundColor: '#f0f0f0',
+        borderRadius: '8px',
+        padding: '4px 14px',
+      },
+      children: `#${tag}`,
+    },
+  }));
 
   const svg = await satori(
     {
@@ -38,7 +67,7 @@ export const GET: APIRoute = async ({ props }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          backgroundColor: '#4d4d4d',
           padding: '40px',
         },
         children: {
@@ -52,17 +81,36 @@ export const GET: APIRoute = async ({ props }) => {
               height: '100%',
               backgroundColor: '#fff',
               borderRadius: '20px',
-              padding: '60px',
+              padding: '48px',
             },
             children: [
               {
                 type: 'div',
                 props: {
                   style: {
-                    fontSize: '48px',
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                  },
+                  children: {
+                    type: 'div',
+                    props: {
+                      style: {
+                        fontSize: '24px',
+                        color: '#888',
+                      },
+                      children: SITE_TITLE,
+                    },
+                  },
+                },
+              },
+              {
+                type: 'div',
+                props: {
+                  style: {
+                    fontSize: '76px',
                     fontWeight: 700,
                     color: '#1a1a2e',
-                    lineHeight: 1.4,
+                    lineHeight: 1.3,
                     overflow: 'hidden',
                     display: '-webkit-box',
                     WebkitLineClamp: 3,
@@ -77,26 +125,61 @@ export const GET: APIRoute = async ({ props }) => {
                   style: {
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '16px',
+                    justifyContent: 'space-between',
                   },
                   children: [
                     {
-                      type: 'img',
+                      type: 'div',
                       props: {
-                        src: faviconDataUri,
-                        width: 56,
-                        height: 56,
-                        style: { borderRadius: '50%' },
+                        style: {
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
+                        },
+                        children: [
+                          ...tagBadges,
+                          {
+                            type: 'div',
+                            props: {
+                              style: {
+                                fontSize: '22px',
+                                color: '#888',
+                              },
+                              children: formatDate(pubDate),
+                            },
+                          },
+                        ],
                       },
                     },
                     {
                       type: 'div',
                       props: {
                         style: {
-                          fontSize: '28px',
-                          color: '#555',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '12px',
                         },
-                        children: `${AUTHOR} / @shucho0103`,
+                        children: [
+                          {
+                            type: 'img',
+                            props: {
+                              src: faviconDataUri,
+                              width: 48,
+                              height: 48,
+                              style: { borderRadius: '50%' },
+                            },
+                          },
+                          {
+                            type: 'div',
+                            props: {
+                              style: {
+                                fontSize: '24px',
+                                color: '#555',
+                              },
+                              children: `${AUTHOR} / @shucho0103`,
+                            },
+                          },
+                        ],
                       },
                     },
                   ],
