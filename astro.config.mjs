@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // 独自ドメインに変える場合は site を書き換え、base は削除してください。
 export default defineConfig({
   site: 'https://shuichiro-t.github.io',
-  base: '/my-blog',
+  base: '',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
   markdown: {
