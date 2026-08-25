@@ -1,25 +1,17 @@
 # GitHub Pages への公開
 
 > **注意**: `.github/workflows/` 配下のファイルは Claude（GitHub App）の権限では
-> 作成・変更できません。以下の 2 ファイルは**手動で追加してください**。
-> 内容はそのままコピーで動きます。
+> 変更できません。ワークフローの内容を変えたい場合は、このファイルを更新した上で
+> 変更後の内容を**手動で反映してください**。
 
-## 0. 先に `package-lock.json` をコミットする
+以下の 2 ワークフローと Settings → Pages の設定はすでに済んでいます
+（`npm ci` を使うため `package-lock.json` もコミット済みです）。
 
-下のワークフローは `npm ci` と `cache: npm` を使うため、`package-lock.json` が
-リポジトリに必要です。まだ無い場合は一度ローカルで作ってコミットしてください。
+## リポジトリの設定
 
-```bash
-npm install
-git add package-lock.json
-git commit -m "chore: add package-lock.json"
-```
+Settings → Pages → **Build and deployment** → Source は **GitHub Actions** にしてあります。
 
-## 1. リポジトリの設定
-
-Settings → Pages → **Build and deployment** → Source を **GitHub Actions** にします。
-
-## 2. `.github/workflows/deploy.yml` を追加する
+## `.github/workflows/deploy.yml`
 
 `main` への push でビルドして GitHub Pages に公開します。
 
@@ -67,7 +59,7 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-## 3. `.github/workflows/ci.yml` を追加する
+## `.github/workflows/ci.yml`
 
 Pull Request でビルドが通るかだけ確認します。記事のフロントマターの不備は
 ここで落ちます。

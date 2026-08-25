@@ -21,7 +21,7 @@ npm run new-post -- <slug>         # 記事のひな形を作る
 - `src/pages/` の階層 = URL。ページは「データを集めてレイアウトに渡す」だけにする
 - ロジックは `src/lib/`（`posts.ts` = 記事の取得・絞り込み、`format.ts` = 日付と URL）
 - サイト名・ナビ・件数などの定数は `src/consts.ts`。文字列を直書きしない
-- コンポーネントは用途別に `common/`（汎用） `blog/`（記事まわり） `layout/`（枠）
+- コンポーネントは用途別に `common/`（汎用） `blog/`（記事まわり） `output/`（アウトプットまわり） `layout/`（枠）
 
 ## 記事
 
