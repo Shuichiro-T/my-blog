@@ -1,7 +1,7 @@
 ---
 title: 'Astro でブログを始めました'
 description: 'このブログを始めた理由とか'
-pubDate: 2026-08-28
+pubDate: 2026-08-23
 tags: ['日常']
 draft: false
 ---
