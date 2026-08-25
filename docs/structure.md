@@ -135,9 +135,11 @@ SpeakerDeck・Zenn・Qiita・技術書典などの外部リンク一覧です。
 
 ### `base` について
 
-GitHub Pages のプロジェクトページで公開するため、`astro.config.mjs` で
-`base: '/my-blog'` を設定しています。この場合、**手書きの `href` には base が
-自動では付きません**。リンクを書くときは `src/lib/format.ts` の `href()` を通してください。
+現在は独自ドメイン（`blog.shuichiro.jp`）で公開しているため、`astro.config.mjs` の
+`base` は空文字です。GitHub Pages のプロジェクトページに戻す場合は
+`base: '/my-blog'` のように値を入れる必要があり、その場合は**手書きの `href` には
+base が自動では付きません**。どちらの場合でもリンクを書くときは
+`src/lib/format.ts` の `href()` を通してください（`base` が空でも何もしない関数として動きます）。
 
 ```astro
 ---
@@ -145,6 +147,3 @@ import { href } from '@/lib/format';
 ---
 <a href={href('/blog')}>Blog</a>
 ```
-
-独自ドメインに移行する場合は `astro.config.mjs` の `site` を書き換えて `base` を
-削除すれば、`href()` はそのまま何もしない関数として動き続けます。

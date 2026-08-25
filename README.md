@@ -15,7 +15,7 @@ npm install
 npm run dev
 ```
 
-http://localhost:4321/my-blog を開きます。
+http://localhost:4321 を開きます。
 
 ## コマンド
 

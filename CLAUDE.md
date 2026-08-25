@@ -49,8 +49,9 @@ npm run new-post -- <slug>         # 記事のひな形を作る
 
 ## リンクの書き方
 
-`astro.config.mjs` で `base: '/my-blog'` を設定しているため、手書きの `href` に
-base は自動で付かない。**内部リンクは必ず `href()` を通す**。
+現在は独自ドメイン（`base: ''`）で運用しているが、プロジェクトページに戻すと
+`astro.config.mjs` の `base` に値が入り、手書きの `href` には自動で付かなくなる。
+**内部リンクは必ず `href()` を通す**。
 
 ```astro
 ---

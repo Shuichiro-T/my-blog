@@ -2,10 +2,9 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// GitHub Pages（プロジェクトページ）で公開する前提の設定。
-// 独自ドメインに変える場合は site を書き換え、base は削除してください。
+// 独自ドメイン（blog.shuichiro.jp）で公開する前提の設定。
 export default defineConfig({
-  site: 'https://shuichiro-t.github.io',
+  site: 'https://blog.shuichiro.jp',
   base: '',
   trailingSlash: 'ignore',
   integrations: [sitemap()],
