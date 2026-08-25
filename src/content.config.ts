@@ -55,6 +55,10 @@ const outputs = defineCollection({
     pubDate: z.coerce.date(),
     /** タグ。英小文字ケバブケース推奨 */
     tags: z.array(z.string()).default([]),
+    /** SpeakerDeck の埋め込み用 ID（埋め込みコードの data-id） */
+    embedId: z.string().optional(),
+    /** OGP 画像の URL（Zenn・Qiita・技術書典で使用） */
+    ogImage: z.string().url().optional(),
   }),
 });
 
