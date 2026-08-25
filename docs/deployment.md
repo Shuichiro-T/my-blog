@@ -91,10 +91,18 @@ jobs:
 
 | 公開方法 | `site` | `base` | URL |
 | --- | --- | --- | --- |
-| プロジェクトページ（現在の設定） | `https://shuichiro-t.github.io` | `/my-blog` | `https://shuichiro-t.github.io/my-blog` |
+| 独自ドメイン（現在の設定） | `https://blog.shuichiro.jp` | 削除 | `https://blog.shuichiro.jp` |
+| プロジェクトページ | `https://shuichiro-t.github.io` | `/my-blog` | `https://shuichiro-t.github.io/my-blog` |
 | ユーザーページ（`Shuichiro-T.github.io` リポジトリ） | `https://shuichiro-t.github.io` | 削除 | `https://shuichiro-t.github.io` |
-| 独自ドメイン | `https://example.com` | 削除 | `https://example.com` |
 
 `base` を変える場合は `public/robots.txt` の Sitemap の URL も合わせて直してください。
 
-独自ドメインを使う場合は `public/CNAME` にドメイン名だけを書いたファイルを置きます。
+独自ドメインを使う場合は `public/CNAME` にドメイン名だけを書いたファイルを置きます
+（`blog.shuichiro.jp` を設定済み）。
+
+また、以下は GitHub の UI 側で手動設定が必要です（Claude からは変更できません）。
+
+- ドメインの DNS で GitHub Pages 向けの CNAME レコード（`blog.shuichiro.jp` →
+  `shuichiro-t.github.io`）を設定する
+- Settings → Pages → **Custom domain** に `blog.shuichiro.jp` を入力し、
+  DNS 反映後に **Enforce HTTPS** を有効にする
